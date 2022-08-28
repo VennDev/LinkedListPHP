@@ -6,7 +6,7 @@ class LinkedList{
     private Node|null $first = null;
     private Node|null $last = null;
 
-    public function add(mixed $item) : void{
+    public function addFirst(mixed $item) : void{
         $this->linkFirst($item);
     }
 
@@ -23,7 +23,7 @@ class LinkedList{
         $this->size++;
     }
 
-    public function addL(mixed $item) : void{
+    public function addLast(mixed $item) : void{
         $this->linkLast($item);
     }
 
@@ -40,7 +40,7 @@ class LinkedList{
         $this->size++;
     }
 
-    public function addBef(mixed $item, Node $succ) : void{
+    public function addBefore(mixed $item, Node $succ) : void{
         $this->linkBefore($item, $succ);
     }
 
