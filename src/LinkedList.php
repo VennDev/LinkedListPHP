@@ -169,6 +169,14 @@ class LinkedList{
     }
 
     public function clear() : void{
+        $current = $this->first;
+        while($current != null){
+            $next = $current->next;
+            $current->item = null;
+            $current->next = null;
+            $current->prev = null;
+            $current = $next;
+        }
         $this->first = null;
         $this->last = null;
         $this->size = 0;
