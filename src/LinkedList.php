@@ -147,6 +147,26 @@ class LinkedList{
         }
         return $this->unlinkLast($l);
     }
+    
+    public function toArrayFirst() : array{
+        $items = [];
+        $current = $this->first;
+        while($current != null) {
+            array_push($items, $current->item);
+            $current = $current->next;
+        }
+        return $items;
+    }
+
+    public function toArrayLast() : array{
+        $items = [];
+        $current = $this->last;
+        while($current != null) {
+            array_push($items, $current->item);
+            $current = $current->next;
+        }
+        return $items;
+    }
 
     public function clear() : void{
         $this->first = null;
