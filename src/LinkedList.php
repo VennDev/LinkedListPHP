@@ -27,6 +27,10 @@ class LinkedList{
         $this->linkLast($item);
     }
 
+    public function add(mixed $item) : void{
+        $this->linkLast($item);
+    }
+
     private function linkLast(mixed $item) : void{
         $l = $this->last;
         $newNode = new Node();
@@ -40,7 +44,7 @@ class LinkedList{
         $this->size++;
     }
 
-    public function addBefore(mixed $item, Node $succ) : void{
+    public function addBef(mixed $item, Node $succ) : void{
         $this->linkBefore($item, $succ);
     }
 
@@ -147,11 +151,11 @@ class LinkedList{
         }
         return $this->unlinkLast($l);
     }
-    
+
     public function toArrayFirst() : array{
         $items = [];
         $current = $this->first;
-        while($current != null) {
+        while($current != null){
             array_push($items, $current->item);
             $current = $current->next;
         }
@@ -161,16 +165,16 @@ class LinkedList{
     public function toArrayLast() : array{
         $items = [];
         $current = $this->last;
-        while($current != null) {
+        while($current != null){
             array_push($items, $current->item);
-            $current = $current->next;
+            $current = $current->prev;
         }
         return $items;
     }
 
     public function clear() : void{
         $current = $this->first;
-        while($current != null){
+        while($current !== null){
             $next = $current->next;
             $current->item = null;
             $current->next = null;
@@ -184,5 +188,91 @@ class LinkedList{
 
     public function size() : int{
         return $this->size;
+    }
+
+    public function isEmpty() : bool{
+        return $this->size == 0;
+    }
+
+    public function contains(mixed $item) : bool{
+        return $this->indexOf($item) != -1;
+    }
+
+    public function indexOf(mixed $item) : int{
+        $index = 0;
+        if($item == null){
+            for($x = $this->first; $x != null; $x = $x->next){
+                if($x->item == null){
+                    return $index;
+                }
+                $index++;
+            }
+        }else{
+            for($x = $this->first; $x != null; $x = $x->next){
+                if($item == $x->item){
+                    return $index;
+                }
+                $index++;
+            }
+        }
+        return -1;
+    }
+
+    public function lastIndexOf(mixed $item) : int{
+        $index = $this->size;
+        if($item == null){
+            for($x = $this->last; $x != null; $x = $x->prev){
+                $index--;
+                if($x->item == null){
+                    return $index;
+                }
+            }
+        }else{
+            for($x = $this->last; $x != null; $x = $x->prev){
+                $index--;
+                if($item == $x->item){
+                    return $index;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public function removeFirstOccurrence(mixed $item) : bool{
+        if($item == null){
+            for($x = $this->first; $x != null; $x = $x->next){
+                if($x->item == null){
+                    $this->unlink($x);
+                    return true;
+                }
+            }
+        }else{
+            for($x = $this->first; $x != null; $x = $x->next){
+                if($item == $x->item){
+                    $this->unlink($x);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function removeLastOccurrence(mixed $item) : bool{
+        if($item == null){
+            for($x = $this->last; $x != null; $x = $x->prev){
+                if($x->item == null){
+                    $this->unlink($x);
+                    return true;
+                }
+            }
+        }else{
+            for($x = $this->last; $x != null; $x = $x->prev){
+                if($item == $x->item){
+                    $this->unlink($x);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
